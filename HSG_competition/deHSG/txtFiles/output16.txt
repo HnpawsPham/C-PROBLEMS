@@ -1,0 +1,1 @@
+ là những vị trí của số 0 trong mảng
