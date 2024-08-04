@@ -18,32 +18,26 @@ int main()
 
     sort(a.begin(), a.end());
 
-    ll l = 0, r = n - 1;
     ll sum = 0;
+    ll l,r;
 
-    for (int i = 0; i < n - 2; i++)
-    {
-        if (i == 0 || a[i].first != a[i - 1].first)
-        {
-            l = i + 1;
+    for(int i = 0; i < n - 3; i++){
+        for(int j = i + 1; j < n - 2; j++){
+            l = j + 1;
             r = n - 1;
 
-            while (l < r)
-            {
-                sum = a[i].first + a[l].first + a[r].first;
+            while(l < r){
+                sum = a[i].first + a[j].first + a[l].first + a[r].first;
 
-                if (sum == k)
-                {
-                    cout << a[i].second << " " << a[l].second << " " << a[r].second << endl;
+                if(sum == k){
+                    cout<<a[i].second<<" "<<a[j].second<<" "<<a[l].second<<" "<<a[r].second;
                     return 0;
                 }
 
-                else if (sum > k)
-                {
+                if(sum > k){
                     r--;
                 }
-                else
-                {
+                else{
                     l++;
                 }
             }
