@@ -23,8 +23,6 @@ ll search(ll num, vector<ll>& a, ll mod1 , ll mod2){
         }
     }
 
-    // cout<<"num = "<<num<<" mid = "<<a[mid]<<endl;
-
     if(a[mid] < num){
         return mid + mod1;
     }
@@ -62,8 +60,6 @@ int main()
         else{
             l = search(l, a, 1, 0);
             r = search(r, a, 0, 1);
-
-            // cout<<l<<" "<<r<<endl;
 
             res.push_back(r - l + 1);
         }
