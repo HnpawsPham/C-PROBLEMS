@@ -14,7 +14,8 @@ int main()
 
     fi >> n;
     vector<ll> a(n);
-    set<tuple<ll,ll,ll> > s;
+    set<tuple<ll, ll, ll>> s;
+    ll ans = 0;
 
     for (int i = 0; i < n; i++)
     {
@@ -27,15 +28,58 @@ int main()
         return 0;
     }
 
+    for (int l = 0; l + 2 < n; l++)
+    {
+        unordered_map<ll, ll> cnt;
 
-    for(auto x : s){
-        ll a, b, c;
-        tie(a,b,c) = x;
+        ll r = l + 1;
+        cnt[a[l]]++;
+        cnt[a[r]]++;
 
-        cout<<a<<" "<<b<<" "<<c<<endl;
+        ll maxap = 1;
+
+        while (r < n)
+        {
+            cnt[a[r]]++;
+            maxap = max(maxap, cnt[a[r]]);
+            
+            if (r - l + 1 >= 3)
+            {
+                if (a[r] != a[l] && cnt[a[r]] == 1 && cnt[a[l]] == 1)
+                {
+                    auto tp = make_tuple(a[l], a[(r + l) / 2], a[r]);
+                    s.insert(tp);
+
+                    if (maxap == 1)
+                    {
+                        for (int j = l + 1; j < r; j++)
+                        {
+                            auto tp = make_tuple(a[l], a[j], a[r]);
+                            s.insert(tp);
+                        }
+                    }
+                    // ans++;
+
+                    // if (maxap == 1)
+                    // {
+                    //     ans += (r - l - 1);
+                    // }
+                }
+            }
+
+            r++;
+        }
     }
 
-    cout << s.size() << endl;
+    // for (auto x : s)
+    // {
+    //     ll a, b, c;
+    //     tie(a, b, c) = x;
+
+    //     cout << a << " " << b << " " << c << endl;
+    // }
+
+    cout << s.size()<< endl;
 
     return 0;
 }

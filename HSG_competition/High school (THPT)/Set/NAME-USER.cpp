@@ -34,7 +34,7 @@ int main()
             res.push_back(str);
         }
         else{
-            res.push_back(str+ to_string(users[str] - 1));
+            res.push_back(str + to_string(users[str] - 1));
         }
     }
 
