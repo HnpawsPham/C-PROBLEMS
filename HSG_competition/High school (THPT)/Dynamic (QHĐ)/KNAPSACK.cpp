@@ -10,19 +10,31 @@ int main()
     cout.tie(0);
 
     cin >> n >> s;
-    vector<int> a(n), w(n), v(n);
+    vector<int> w(n + 1), v(n + 1);
     vector<vector<int>> dp(n + 1, vector<int>(s + 1));
 
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i <= n; i++)
     {
-        int x, y, z;
-        cin >> x >> y >> z;
-
-        a.push_back(x);
-        w.push_back(y);
-        v.push_back(z);
+        cin>>w[i];
     }
 
-    cout << dp[0][0] << endl;
+    for (int i = 1; i <= n; i++)
+    {
+        cin>>v[i];
+    }
+
+    for (int i = 1; i <= n; i++)
+    {
+        for (int j = 1; j <= s; j++)
+        {
+            dp[i][j] = dp[i - 1][j];
+
+            if(w[i] <= j){
+                dp[i][j] = max(dp[i][j], dp[i - 1][j - w[i]] + v[i]);
+            }
+        }
+    }
+
+    cout << dp[n][s] << endl;
     return 0;
 }

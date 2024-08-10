@@ -36,4 +36,5 @@ int main(){
 
     cout<<sl<<endl;
 }
-// lam full test kieu gi?
+// lam full test kieu gi? 7/3/2024
+// dung 2 con tro (tuong tu 3 sum) 8/10/2024
