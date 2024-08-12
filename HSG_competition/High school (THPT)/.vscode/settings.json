@@ -8,6 +8,7 @@
         "vector": "cpp",
         "ostream": "cpp",
         "tuple": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "cmath": "cpp"
     }
 }

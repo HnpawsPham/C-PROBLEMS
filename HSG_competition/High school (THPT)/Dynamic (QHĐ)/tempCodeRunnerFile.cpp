@@ -2,7 +2,7 @@
 using namespace std;
 
 int t,n;
-vector<int>a(93, -1);
+vector<int> res, a(93, -1);
 
 int fibo(int num){
     if(num < 2){
@@ -25,7 +25,11 @@ int main(){
 
     while(t--){
         cin>>n;
-        cout<<fibo(n)<<endl;
+        res.push_back(fibo(n - 1));
+    }
+
+    for(auto x : res){
+        cout<<x<<endl;
     }
 
     return 0;

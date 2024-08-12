@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-#define MOD 1000000007;
+#define MOD 1000000007
 
 int n, s;
 
@@ -12,25 +11,26 @@ int main()
     cout.tie(0);
 
     cin >> n >> s;
-    vector<int> a(n), dp(s + 1, 0);
+    vector<int> a(n);
+    vector<int> dp(s + 1, 0);
 
-    for(auto& x : a){
-        cin>>x;
+    for (auto &x : a)
+    {
+        cin >> x;
     }
 
-    dp[0]= 1;
+    dp[0] = 1;
 
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j <= s; j++)
         {
-            if (a[i] <= j)
-            {
-                dp[j] = (dp[j - a[i]] + dp[j]) % MOD;
+            if(a[i] <= j){
+                dp[j] = (dp[j] + dp[j - a[i]]) % MOD;
             }
         }
     }
-    
+
     cout << dp[s] << endl;
     return 0;
 }
