@@ -2,20 +2,38 @@
 using namespace std;
 
 int n, m, ax, ay, bx, by;
-vector<vector<int>> a(10001, vector<int>(10001)),
-                    path(10001, vector<int>(10001));
+vector<vector<int>> a(1001, vector<int>(1001));
+vector<vector<string>> path(1001, vector<string>(1001));
 
 int dy[] = {-1, 0, 0, 1},
     dx[] = {0, -1, 1, 0};
 
-void bfs(int i, int j)
+string getDirection(int num)
+{
+    if (num == 0)
+    {
+        return "U ";
+    }
+    else if (num == 1)
+    {
+        return "L ";
+    }
+    else if (num == 2)
+    {
+        return "R ";
+    }
+    
+    return "D ";
+}
+
+bool bfs(int i, int j)
 {
     queue<pair<int, int>> q;
     q.push({i, j});
 
     a[i][j] = 1;
-    path[i][j] = 0;
-    
+    path[i][j] = "";
+
     while (!q.empty())
     {
         pair<int, int> current = q.front();
@@ -28,11 +46,11 @@ void bfs(int i, int j)
 
             if (i1 >= 0 && i1 < n && j1 >= 0 && j1 < m && a[i1][j1] != 1)
             {
-                path[i1][j1] = path[current.first][current.second] + 1;
+                path[i1][j1] = path[current.first][current.second] + getDirection(x);
 
                 if (a[i1][j1] == 2)
                 {
-                    return;
+                    return true;
                 }
 
                 q.push({i1, j1});
@@ -40,6 +58,8 @@ void bfs(int i, int j)
             }
         }
     }
+
+    return false;
 }
 
 int main()
@@ -58,12 +78,20 @@ int main()
         }
     }
 
-    cin >> ax >> ay >> bx >> by;
-    a[bx][by] = 2;
+    cin >> ay >> ax >> by >> bx;
 
-    bfs(ax, ay);
+    a[by][bx] = 2;
 
-    cout<<(path[bx][by] > 0 ? to_string(path[bx][by]) : "NO")<<endl;
+    cout << (bfs(ay, ax) ? path[by][bx] : "NO") << endl;
 
     return 0;
 }
+// 6 6
+// 0 0 0 1 0 0
+// 0 1 0 0 0 0
+// 1 1 0 0 0 0
+// 0 0 0 0 1 1
+// 0 0 0 0 1 0
+// 0 0 0 1 1 1
+// 0 0
+// 4 0
