@@ -1,13 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n;
-vector<pair<int, int>> a; // Vector lưu cặp (a[i], b[i])
-vector<int> b;            // Mảng b[i]
+int n, maxv;
+vector<pair<int, int>> a; 
+vector<int> b;
 
 bool check(int x)
 {
-
     for (int i = 0; i < n; i++)
     {
 
@@ -16,16 +15,16 @@ bool check(int x)
 
         while (l <= r)
         {
-            int mid = (l + r) / 2;
+            int j = (l + r) / 2;
 
-            if (a[i].first * a[mid].first >= x)
+            if (a[i].first * a[j].first >= x)
             {
-                k = mid;
-                r = mid - 1;
+                k = j;
+                r = j - 1;
             }
             else
             {
-                l = mid + 1;
+                l = j + 1;
             }
         }
 
@@ -45,23 +44,23 @@ bool check(int x)
 
 int solve()
 {
-    int low = 0, high = INT_MAX, result = 0;
+    int l = 0, r = maxv * maxv, res = 0;
 
-    while (low <= high)
+    while (l <= r)
     {
-        int mid = (low + high) / 2;
-        if (check(mid))
+        int x = (l + r) / 2;
+        if (check(x))
         {
-            result = mid;
-            low = mid + 1;
+            res = x;
+            l = x + 1;
         }
         else
         {
-            high = mid - 1;
+            r = x - 1;
         }
     }
 
-    return result;
+    return res;
 }
 
 int main()
@@ -76,10 +75,12 @@ int main()
     for (int i = 0; i < n; i++)
     {
         cin >> a[i].first;
+        maxv = max(maxv, a[i].first);
     }
 
     for (int i = 0; i < n; i++)
     {
+        maxv = max(maxv, b[i]);
         cin >> b[i];
     }
 
