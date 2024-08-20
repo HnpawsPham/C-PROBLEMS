@@ -1,10 +1,42 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, m, x, y;
+int n, m, x = 0, y = 0;
 vector<vector<int>> a(10001);
 vector<bool> check(10001);
 vector<int> parent(10001);
+
+bool bfs(int u)
+{
+    queue<int> q;
+    q.push(u);
+
+    check[u] = true;
+    parent[u] = 0;
+
+    while (!q.empty())
+    {
+        int v = q.front();
+        q.pop();
+
+        for (auto t : a[v])
+        {
+            if (!check[t])
+            {
+                q.push(t);
+
+                check[t] = true;
+                parent[t] = v;
+            }
+            else if (t != parent[v])
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
 
 bool dfs(int u)
 {
@@ -12,8 +44,13 @@ bool dfs(int u)
 
     for (auto v : a[u])
     {
+        if (v == y)
+        {
+            continue;
+        }
+
         if (!check[v])
-        {   
+        {
             parent[v] = u;
 
             if (dfs(v))
@@ -26,10 +63,11 @@ bool dfs(int u)
             x = v;
             y = u;
 
+            check[v] = true;
+
             return true;
         }
     }
-
     return false;
 }
 
@@ -50,17 +88,24 @@ int main()
         a[v].push_back(u);
     }
 
+    bool hasCycle = false;
+
     for (int i = 1; i <= n; i++)
     {
         if (!check[i])
         {
             if (dfs(i))
             {
-                cout << "YES" << endl;
+                if (!hasCycle)
+                {
+                    hasCycle = true;
+                    cout << "YES" << endl;
+                }
 
                 deque<int> cycle;
 
-                while(y != x){
+                while (y != x)
+                {
                     cycle.push_front(y);
                     y = parent[y];
                 }
@@ -68,17 +113,19 @@ int main()
                 cycle.push_front(x);
                 cycle.push_back(x);
 
-                for(auto x : cycle){
-                    cout<<x<<" ";
+                for (auto x : cycle)
+                {
+                    cout << x << " ";
                 }
-                cout<<endl;
-
-                return 0;
+                cout << endl;
             }
         }
     }
 
-    cout << "NO" << endl;
+    if (!hasCycle)
+    {
+        cout << "NO" << endl;
+    }
 
     return 0;
 }
