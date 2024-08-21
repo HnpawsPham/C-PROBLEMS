@@ -9,11 +9,15 @@ void solve(vector<int> &a)
 {
     sort(a.begin(), a.end());
 
-    for (int i = 0; i < n; i++)
+    for (int i = n - 2; i >= 0; i--)
     {
-        for (int j = i + 1; j < n; j++)
-        {
-            ans = max(ans, a[i] % a[j]);
+        if(a[i] < ans){
+            break;
+        }
+
+        for(int k = 2; k <= a[n - 1] / a[i] + 1; k++){
+            int j = lower_bound(a.begin() + i, a.end(), a[i] * k) - a.begin() - 1;
+            ans = max(ans, a[j] % a[i]);
         }
     }
 }
