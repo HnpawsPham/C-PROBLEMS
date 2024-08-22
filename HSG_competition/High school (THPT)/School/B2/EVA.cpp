@@ -12,16 +12,6 @@ int main()
     cout.tie(0);
 
     fi >> n >> m;
-    int cnt = 0;
-
-    for (int i = 0; i < m; i++)
-    {
-        int x;
-        fi >> x;
-
-        cout<<((x + cnt > n) ? 0 : x + cnt)<<endl;
-        cnt++;
-    }
 
     return 0;
 }
