@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define MOD 1000000007;
-
 int n;
 
 int main()
@@ -13,24 +11,44 @@ int main()
 
     cin >> n;
     int a[n];
-    int dp[2005] = {0};
+    int sum = 0;
 
-    for(int i=1;i<=n;i++){
-        cin>>a[i];    
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+        sum += a[i];
     }
 
-    dp[a[1]] = a[1];
-    int sum = a[0];
+    vector<bool> dp(sum + 1, false);
+    dp[0] = true;
 
-    for(int i =2;i<=n;i++){
-        
-    }
-
-    for(int i=1;i<=2000; i++){
-        if(dp[i] > 0){
-            cout<<dp[i]<<" ";
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = sum; j >= a[i]; j--)
+        {
+            if (dp[j - a[i]])
+            {
+                dp[j] = true;
+            }
         }
     }
-    
+
+    vector<int> res;
+
+    for (int j = 1; j <= sum; j++)
+    {
+        if (dp[j])
+        {
+            res.push_back(j);
+        }
+    }
+
+    cout << res.size() << endl;
+
+    for (auto x : res)
+    {
+        cout << x << " ";
+    }
+
     return 0;
 }
