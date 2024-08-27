@@ -19,7 +19,7 @@ int main(){
 
     // phan xu li
     int sum1=0,
-              sum2=0;
+        sum2=0;
     i=0;
 
 
