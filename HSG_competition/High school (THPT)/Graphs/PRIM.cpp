@@ -7,62 +7,59 @@ struct line
 {
     int u, v;
     ll w;
+
+    line(int u1, int v1, ll w1) : u(u1), v(v1), w(w1) {};
 };
 
 int n, m;
 const int maxn = 10001;
 vector<vector<pii>> a(maxn);
-bool inMST[maxn] = {false};
+bool check[maxn] = {false};
 int parent[maxn];
-ll mind[maxn] = {LLONG_MAX};
+vector<ll> minw(maxn, LLONG_MAX);
 
 void prim(int x)
 {
     vector<line> mst;
+    priority_queue<pii, vector<pii>, greater<pii>> pq;
+    pq.push({0, x});
     ll res = 0;
-    priority_queue<pii, vector<pii>, greater<pii>> q;
-    q.push({0, x});
 
-    for (int i = 1; i <= n; i++)
+    while (!pq.empty())
     {
-        mind[i] = LLONG_MAX;
-    }
+        pii curr = pq.top();
+        pq.pop();
 
-    while (!q.empty())
-    {
-        pii top = q.top();
-        q.pop();
+        int u = curr.second;
+        int w = curr.first;
 
-        ll w = top.first;
-        int u = top.second;
-
-        if (inMST[u])
+        if (check[u])
             continue;
 
         res += w;
-        inMST[u] = true;
+        check[u] = true;
 
         if (u != x)
         {
             mst.push_back({parent[u], u, w});
         }
 
-        for (pii curr : a[u])
+        for (pii x : a[u])
         {
-            int v = curr.first;
-            ll w1 = curr.second;
+            int w1 = x.second;
+            int v = x.first;
 
-            if (!inMST[v] && w1 < mind[v])
+            if (!check[v] && w1 < minw[v])
             {
-                q.push({w1, v});
-                mind[v] = w1;
                 parent[v] = u;
+                minw[v] = w1;
+                pq.push({w1, v});
             }
         }
     }
 
     cout << res << endl;
-    for (line l : mst)
+    for (auto l : mst)
     {
         cout << l.u << " " << l.v << " " << l.w << endl;
     }
@@ -75,7 +72,6 @@ int main()
     cout.tie(0);
 
     cin >> n >> m;
-
     for (int i = 0; i < m; i++)
     {
         int u, v;
