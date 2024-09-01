@@ -3,7 +3,12 @@
         "*.embeddedhtml": "html",
         "ostream": "cpp",
         "iostream": "cpp",
-        "type_traits": "cpp"
+        "type_traits": "cpp",
+        "array": "cpp",
+        "deque": "cpp",
+        "forward_list": "cpp",
+        "list": "cpp",
+        "vector": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

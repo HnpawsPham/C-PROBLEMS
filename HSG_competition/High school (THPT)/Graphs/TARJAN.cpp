@@ -5,12 +5,12 @@ int n, m, stt = 0, cnt = 0;
 vector<vector<int>> a(10001);
 vector<int> index(10001), low(10001);
 stack<int> path;
-vector<bool> onStack(10001, false);
+vector<bool> check(10001, false);
 
 void dfs(int u)
 {
     path.push(u);
-    onStack[u] = true;
+    check[u] = true;
     index[u] = low[u] = stt++;
 
     for (auto v : a[u])
@@ -18,10 +18,9 @@ void dfs(int u)
         if (index[v] == 0)
         {
             dfs(v);
-
             low[u] = min(low[u], low[v]);
         }
-        else if (onStack[v])
+        else if (check[v])
         { // meet parent
             low[u] = min(low[u], index[v]);
         }
@@ -34,13 +33,9 @@ void dfs(int u)
             int v = path.top();
             path.pop();
 
-            onStack[v] = false;
-            low[v] = index[u]; // avoid duplicate
+            check[v] = false;
 
-            if (v == u)
-            {
-                break;
-            }
+            if (v == u) break;
         }
 
         cnt++;

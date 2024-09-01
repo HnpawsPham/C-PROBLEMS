@@ -63,13 +63,11 @@ vector<int> ans;
 
 void tarjan(int u, int parent){
     index[u] = low[u] = id++;
-    int children = 0;
 
     for(int v : a[u]){
         if(index[v] == -1){
             tarjan(v, u);
             low[u] = min(low[u], low[v]);
-            children++;
 
             if(parent != 0 && low[v] >= index[u]){ // v la con cua u hoac la con cua mot dinh con cua u
                 ans.push_back(u);
@@ -81,7 +79,7 @@ void tarjan(int u, int parent){
         }
     }
 
-    if(parent == 0 && children > 1){ // dinh goc cua 1 thanh phan lien thong
+    if(parent == 0 && ans.size() > 1){ // dinh goc cua 1 thanh phan lien thong
         ans.push_back(u);
     }
     return;
