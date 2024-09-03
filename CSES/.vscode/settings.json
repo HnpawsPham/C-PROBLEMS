@@ -8,7 +8,8 @@
         "deque": "cpp",
         "forward_list": "cpp",
         "list": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "cstdlib": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
