@@ -22,29 +22,29 @@ int main()
             cin >> a[i][j];
         }
     }
+    
+    if(a[0][0] == '*') {
+        cout<<0<<el;
+        return 0;
+    }
+    
     cntpath[0][0] = 1;
-    for (int j = 1; j < n; j++)
-    {
-        cntpath[0][j] = 0;
-        if (a[0][j] == '*') continue;
-        cntpath[0][j] = 1;
-    }
-    for (int i = 1; i < n; i++)
-    {
-        cntpath[i][0] = 0;
-        if (a[i][0] == '*') continue;
-        cntpath[i][0] = 1;
-    }
 
-    for (int i = 1; i < n; i++)
+    for (int i = 0; i < n; i++)
     {
-        for (int j = 1; j < n; j++)
+        for (int j = 0; j < n; j++)
         {
+            if(i == 0 && j == 0) continue;
             cntpath[i][j] = 0;
 
             if (a[i][j] == '*') continue;
-            if(a[i][j - 1] != '*') cntpath[i][j] = (cntpath[i][j] + cntpath[i][j - 1]) % MOD;
-            if(a[i - 1][j] != '*') cntpath[i][j] = (cntpath[i][j] + cntpath[i - 1][j]) % MOD;
+
+            if(j > 0){
+                if(a[i][j - 1] != '*') cntpath[i][j] = (cntpath[i][j] + cntpath[i][j - 1]) % MOD;
+            }
+            if(i > 0){
+                if(a[i - 1][j] != '*') cntpath[i][j] = (cntpath[i][j] + cntpath[i - 1][j]) % MOD;
+            }
         }
     }
     cout << cntpath[n - 1][n - 1] << el;
