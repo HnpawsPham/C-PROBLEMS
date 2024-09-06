@@ -4,33 +4,29 @@ using namespace std;
 #define pii pair<int, int>
 
 int n;
-const int maxn = 1001;
 
 int main(){
     freopen(".\\txt\\EXLIST.INP","r", stdin);
+    freopen(".\\txt\\EXLIST.OUT", "w", stdout);
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
 
     cin>>n;
-    int a[n], p[n];
+    int a[n + 1], p[n + 1];
     queue<pii> pos;
-    unordered_map<int, int> cnt;
+    unordered_map<int, int> left;
+    p[0] = 0;
 
-    for(int i = 0;i<n;i++){
+    for(int i = 1;i<=n;i++){
         cin>>a[i];
-        p[i] = a[i];
+        p[i] = a[i] + p[i - 1];
 
-        if(cnt.count(a[i])){
-            pos.push({cnt[a[i]], i});
+        if(left.count(a[i])){
+            pos.push({left[a[i]], i});
+            continue;
         }
-        else{
-            cnt[a[i]] = i;
-        }
-        
-        if(i > 0){
-            p[i] += p[i - 1];
-        }
+        left[a[i]] = i;
     }
 
     int sum = 0, len = 0;
@@ -38,15 +34,18 @@ int main(){
         pii curr = pos.front();
         pos.pop();
 
-        int i = curr.first;
-        int j = curr.second;
+        int l = curr.first;
+        int r = curr.second;
 
-        if(j - i + 1 < len) continue;
-        len = j - i + 1;
-        sum = max(sum, p[j] - (i > 0 ? p[i - 1] : 0));
+        if(r - l + 1 > len){
+            len = r - l + 1;
+            sum = p[r] - p[l - 1];
+        }
+        else if(r - l + 1 == len){
+            sum = max(sum, p[r] - p[l - 1]);
+        }
     }
-    cout<<len<<el;
-    cout<<sum<<el;
+    cout<<len<<" "<<sum<<el;
 
     return 0;
 }

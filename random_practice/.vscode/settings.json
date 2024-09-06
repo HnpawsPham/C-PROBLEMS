@@ -73,7 +73,9 @@
         "xutility": "cpp",
         "compare": "cpp",
         "xstddef": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "xlocinfo": "cpp",
+        "xstring": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

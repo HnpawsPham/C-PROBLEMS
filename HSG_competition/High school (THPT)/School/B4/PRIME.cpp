@@ -4,18 +4,15 @@ using namespace std;
 
 int n;
 const int maxn = 1000001;
-bool b[maxn] = {false};
 int cnt[maxn];
 
 void sieve()
 {
     memset(cnt, 0, sizeof(cnt));
-    b[1] = b[0] = true;
 
-    for (int i = 2; i < (int)sqrt(maxn); i++){
-        if (!b[i]){
-            for (int j = i * i; j < maxn; j += i){
-                b[j] = true;
+    for (int i = 2; i < maxn; i++){
+        if (cnt[i] == 0){
+            for (int j = i; j < maxn; j += i){
                 cnt[j]++;
             }
         }
@@ -25,6 +22,7 @@ void sieve()
 int main()
 {
     freopen(".\\txt\\PRIME.INP", "r", stdin);
+    freopen(".\\txt\\PRIME.OUT", "w", stdout);
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
