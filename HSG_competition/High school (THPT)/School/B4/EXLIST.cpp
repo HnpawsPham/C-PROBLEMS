@@ -22,30 +22,29 @@ int main(){
         cin>>a[i];
         p[i] = a[i] + p[i - 1];
 
-        if(left.count(a[i])){
-            pos.push({left[a[i]], i});
-            continue;
+        if(!left.count(a[i])){
+            left[a[i]] = i;
         }
-        left[a[i]] = i;
+
+        pos.push({left[a[i]], i});
     }
 
-    int sum = 0, len = 0;
+    int maxsum = 0, maxlen = 0;
     while(!pos.empty()){
         pii curr = pos.front();
         pos.pop();
 
         int l = curr.first;
         int r = curr.second;
+        int currlen = r - l + 1;
+        int currsum = p[r] - p[l - 1];
 
-        if(r - l + 1 > len){
-            len = r - l + 1;
-            sum = p[r] - p[l - 1];
-        }
-        else if(r - l + 1 == len){
-            sum = max(sum, p[r] - p[l - 1]);
+        if (currlen > maxlen || (currlen == maxlen && currsum > maxsum)) {
+            maxlen = currlen;
+            maxsum = currsum;
         }
     }
-    cout<<len<<" "<<sum<<el;
+    cout<<maxlen<<" "<<maxsum<<el;
 
     return 0;
 }
