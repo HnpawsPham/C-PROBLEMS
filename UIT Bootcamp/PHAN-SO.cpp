@@ -3,18 +3,11 @@
 using namespace std;
 using ll = long long;
 
-ll a, b;
-ll gcdres;
+int a, b, c , d;
 
-ll gcd(ll a, ll b){
-    if(b == 0){
-        return a;
-    }
+int gcd(int a, int b){
+    if(b == 0) return a;
     return gcd(b, a % b);
-}
-
-ll lcm(ll a, ll b){
-    return a * b / gcdres;
 }
 
 int main(){
@@ -22,10 +15,23 @@ int main(){
     cin.tie(0);
     cout.tie(0);
 
+    cin>>a>>b>>c>>d;
+    int step = 0;
 
-    cin>>a>>b;
-    gcdres = gcd(a, b);
-    cout<<gcdres<<" "<<lcm(a, b)<<el;
+    while(a != c || b != d){
+        a++;
+        b++;
+        int uc = gcd(a, b);
+        a /= uc;
+        b /= uc;
+
+        if(abs(a - b) == 1 && abs(c - a) != abs(d - b)){
+            step = -1;
+            break;
+        }
+        step++;
+    }
+    cout<<step<<el;
     
     return 0;
 }
