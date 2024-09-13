@@ -29,7 +29,7 @@ int main(){
             ok = false;
         }
         
-        if(!isupper(res[i - 1])) res[i] = toupper(str[i]);
+        if(!isupper(res[i - 1])) res[i] = toupper(res[i]);
         else ok = true;
     }
     std::cout<<res<<el;

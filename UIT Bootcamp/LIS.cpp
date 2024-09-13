@@ -10,43 +10,37 @@ int main() {
 
     int n;
     cin >> n;
-    ll a[n];
+    vector<ll> a(n);
+    for(ll &x : a) cin>>x;
 
-    for (int i = 0; i < n; i++) {
-        cin >> a[i];
-    }
+    vector<int> parent(n), dp(n, 1);
 
-    vector<ll> dp;
-    vector<int> parent(n, -1), b;
+    int ans = 0;
+    int st = -1;
 
-    for (int i = 0; i < n; i++) {
-        ll pos = lower_bound(dp.begin(), dp.end(), a[i]) - dp.begin();
-
-        if (pos == dp.size()) {
-            dp.push_back(a[i]);
-            if (!dp.empty()) {
-                parent[i] = b.empty() ? -1 : b.back();
+    for(int i = 0; i<n;i++){
+        parent[i] = i;
+        for(int j = 0; j<i;j++){
+            if(a[j] < a[i] && dp[j] + 1 > dp[i]){
+                dp[i] = dp[j] + 1;
+                parent[i] = j;
             }
-            b.push_back(i);
-        } else {
-            dp[pos] = a[i];
-            parent[i] = pos > 0 ? b[pos - 1] : -1;
-            b[pos] = i;
+        }
+        if(dp[i] > ans){
+            ans = dp[i];
+            st = i;
         }
     }
+    cout<<ans<<el;
 
-    vector<ll> res;
-    int x = b.back();
-    while (x != -1) {
-        res.push_back(a[x]);
-        x = parent[x];
+    deque<ll> res;
+    res.push_front(a[st]);
+    while(st != parent[st]){
+        st = parent[st];
+        res.push_front(a[st]);
     }
-    reverse(res.begin(), res.end());
-
-    cout << res.size() << el;
-    for (ll x : res) {
-        cout << x << " ";
-    }
-
+   
+    for(ll x : res) cout<<x<<" ";
+    cout<<el;
     return 0;
 }

@@ -4,9 +4,9 @@ using ll = long long;
 #define el "\n"
 
 int n, q;
-ll x = -LLONG_MAX;
 const int maxn = 100005;
-ll a[6 * maxn], b[maxn];
+ll a[4 * maxn];
+ll b[4 * maxn];
 int r[maxn], l[maxn];
 
 void build(){
@@ -16,7 +16,7 @@ void build(){
 
 void update(int pos, ll val){
     int t = pos + n;
-    a[pos] = val;
+    a[t] = val;
 
     t/=2;
     while(t > 0){
@@ -27,7 +27,7 @@ void update(int pos, ll val){
 }
 
 ll getmax(int l, int r){
-    ll res = x;
+    ll res = -LLONG_MAX;
     l +=n; r += n;
 
     while(l <= r){
@@ -44,6 +44,19 @@ ll getmax(int l, int r){
     return res;
 }
 
+void lazyUpdate(int pos, int l, int r){
+    if(b[pos] == 0) return;
+    a[pos] = max(b[pos], a[pos]);
+
+    if(l != r){
+        b[2 * pos] = max(b[2 * pos], b[pos]);
+        b[2 * pos + 1] = max(b[2 * pos + 1], b[pos]);
+    }
+
+    b[pos] = 0;
+    return;
+}
+
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
@@ -51,6 +64,7 @@ int main(){
 
     cin>>n>>q;
     build();
+    memset(b, 0 , sizeof(b));
 
     for(int i = 0;i<q;i++){
         int t;
@@ -58,22 +72,16 @@ int main(){
         if(t == 2){
             cin>>l[i]>>r[i];
             b[i] = 0;
+            cout<<getmax(l[i] - 1, r[i] - 1)<<el;
         }
         else{ // 1
             int p;
-            cin>>p;
+            ll x;
+            cin>>p>>x;
             l[i] = r[i] = -1;
-            cin>>b[p];
+            b[p] = x;       
+            // update(p - 1, x);
         } 
-    }
-
-    for(int i = 0; i<q;i++){
-        if(l[i] != -1) cout<<getmax(l[i], r[i])<<el;
-        else{
-            for(int i = l[i] - 1; i < r[i]; i++){
-                x = max(x, b[i]);
-            }
-        }
     }
     return 0;
 }
