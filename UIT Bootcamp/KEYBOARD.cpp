@@ -11,23 +11,21 @@ int main(){
     cout.tie(0);
 
     cin>>str;
-    cin>>n;
     int m = str.length();
-    int res = m;
-    unordered_map<char, int> mp, cnt;
-
+    unordered_map<char, int> cnt;
+    for(int i = 0; i < m; i++){
+        cnt[str[i]]++;
+    }
+    cin>>n;
+    int res = 0;
     while(n--){
         char ch;
-        cin>>ch>>mp[ch];
+        int t;
+        cin>>ch>>t;
+        t--;
+        res += (cnt[ch] + t - 1)/t;
     }
-
-    for(int i = 0; i<m;i++){
-        if(mp.count(str[i])) cnt[str[i]]++;
-    }
-    for(auto x : cnt){
-        res += (x.second + mp[x.first] - 1) / x.second;
-    }
-    cout<<res<<el;
+    cout<<res + m<<el;
 
     return 0;
 }

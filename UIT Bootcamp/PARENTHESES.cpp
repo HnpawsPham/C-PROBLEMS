@@ -2,28 +2,31 @@
 using namespace std;
 #define el "\n"
 
-string str;
+string str, res = "";
 
-bool check(int t){
-    bool ok = true;
-    for(int i = 0; i < t; i+= 2){
-        if(str[i] == '(' && str[t - i - 1] == ')') ;
-        if(str[i] != '(' || str[i + 1] != ')') ok = false;
+bool check(string s){
+    int cnt = 0;
+    for(char x : s){
+        if(x == '(') cnt++;
+        else cnt--;
+
+        if(cnt < 0) return false;
     }
-
-    return ok;
+    return cnt == 0;
 }
 
-void solve(int t){
-    if(check(t)){
-        cout<<t<<el;
-        for(int i = 0; i<t;i++){
-            cout<<str[i];
+void solve(int st, string s){
+    if(check(s)){
+        if(s.length() > res.length() || (s.length() == res.length() && s < res)){
+            res = s;
         }
-        return;
     }
 
-    solve(t - 1);
+    for(int i = st; i<str.length();i++){
+        solve(i + 1, s + str[i]);
+        solve(i + 1, s);
+    }
+    return;
 }
 
 int main(){
@@ -32,8 +35,8 @@ int main(){
     cout.tie(0);
 
     cin>>str;
-    int len = str.length();
-    solve(len);
+    solve(0, "");
+    cout<<res.length()<<el<<res<<el;
 
     return 0;
 }
