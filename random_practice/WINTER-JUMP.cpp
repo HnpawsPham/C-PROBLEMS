@@ -15,24 +15,20 @@ int main(){
     for(int i = 1; i<=n;i++) cin>>a[i];
 
     vector<vector<int>> dp(n + 1, vector<int>(n + 1, maxn));
-    vector<vector<int>> minn(n + 1, vector<int>(n + 1, maxn));
     int res = maxn;
     
-    for(int i = 0; i<=n;i++){
-        dp[1][i] = 0;
-        minn[1][i] = 0;
-    }
+    for(int i = 0; i<=n;i++) dp[1][i] = 0;
 
     for(int i = 2; i <= n;i++){
         for(int j = 1; j<=k;j++){
             if(i - j <= 0) continue;
             int cur = abs(a[i] - a[i - j]);
-            dp[i][cur] = min(dp[i][cur], minn[i - j][cur] + 1);
+            dp[i][cur] = min(dp[i][cur], dp[i - j][cur] + 1);
         }
 
         for(int x = n; x >=0;x--){
-            if(x == n) minn[i][x] = dp[i][x];
-            else minn[i][x] = min(minn[i][x + 1], dp[i][x]);
+            if(x == n) dp[i][x] = dp[i][x];
+            else dp[i][x] = min(dp[i][x + 1], dp[i][x]);
         }
     }
 
