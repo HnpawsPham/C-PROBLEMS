@@ -7,19 +7,20 @@ using ll = long long;
 int n, m, k;
 const int maxn = 100005;
 const int maxw = 999999;
-int pos[maxn], cnt[maxn];
+int parent[maxn], sz[maxn], pos[maxn];
 vector<vector<pii>> a(maxn);
 
 void dijkstra(){
     priority_queue<pii, vector<pii>, greater<pii>> pq;
     vector<int> dis(n + 1, maxw);
-    int des[n + 1];
+    int des[n + 1], minn[n + 1];
 
+    for(int i =1 ;i<=n;i++) minn[i] = maxw;
     for(int i = 1; i<=k;i++){
         dis[pos[i]] = 0;
+        des[pos[i]] = pos[i];
         pq.push({0, pos[i]});
     }
-    for(int i = 1; i<=n;i++) des[i] = i;
 
     while(!pq.empty()){
         pii cur = pq.top();
@@ -34,18 +35,15 @@ void dijkstra(){
             int v = x.second;
             int w1 = x.first;
 
-            if(dis[u] + w1 < dis[v] || (dis[u] + w1 == dis[v] && des[u] < des[v])){
+            if(dis[u] + w1 < dis[v]){
                 dis[v] = dis[u] + w1;
-                des[v] = des[u];
+                cout<<v<<el;
                 pq.push({dis[v], v});
             }
         }
     }
-    for(int i = 1; i<=k;i++){
-        for(int j = 0; j<cnt[pos[i]];j++){
-            cout<<des[pos[i]]<<" ";
-        }
-    }
+    for(int i = 1; i<=n;i++) cout<<dis[i]<<" ";
+    cout<<el;
     return;
 }
 
@@ -55,16 +53,12 @@ int main(){
     cout.tie(0);
 
     cin>>n>>m>>k;
-    memset(cnt, 0, sizeof(cnt));
-    for(int i = 1; i<=k;i++){
-        cin>>pos[i];
-        cnt[pos[i]]++;
-    }
+    for(int i = 1; i<=k;i++) cin>>pos[i];
     for(int i = 0; i<m;i++){
         int u, v, w;
         cin>>u>>v>>w;
         a[u].push_back({w, v});
-        a[v].push_back({w, u});
+        a[v].push_back({w,u});
     }
     dijkstra();
 
