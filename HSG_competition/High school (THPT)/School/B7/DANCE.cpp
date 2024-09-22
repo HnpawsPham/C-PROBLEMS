@@ -48,6 +48,7 @@ void dijkstra(){
 }
 
 int main(){
+    freopen(".\\txt\\DANCE.INP", "r", stdin);
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
@@ -65,11 +66,3 @@ int main(){
     return 0;
 }
 
-// 6 6 3
-// 1 3 6
-// 1 2 1
-// 2 3 1
-// 3 4 1
-// 4 5 1
-// 5 6 1
-// 2 6 1
