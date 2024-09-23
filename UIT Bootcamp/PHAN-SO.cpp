@@ -25,8 +25,8 @@ int main(){
         a /= uc;
         b /= uc;
 
-        if(abs(a - b) == 1 && abs(c - a) != abs(d - b)){
-            step = -1;
+        if(abs(a - b) == 1 && (c <= a || d <= b) && abs(c - d) != 1){
+            step = 0;
             break;
         }
         step++;
