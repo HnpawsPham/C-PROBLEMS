@@ -5,21 +5,6 @@ using ll = long long;
 
 int t;
 
-ll get_n(ll m, ll k){
-    ll res = -1;
-    ll l = 0, r = m - 1;
-    while(l <= r){
-        ll mid = l + (r - l)/2;
-
-        if(mid * m + (mid + 1)*(m + 1) == 2*k){
-            res = mid;
-            r = mid - 1;
-        }
-        else l = mid + 1;
-    }
-    return res;
-}
-
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
@@ -30,22 +15,17 @@ int main(){
         ll k;
         cin>>k;
 
-        ll l = 1, r = (ll)sqrt(k);
-        ll n = -1, m = -1;
-        bool ok = false;
-
-        while(l <= r){
-            ll mid = l + (r - l)/2;
-
-            ll res = get_n(mid, k);
-            if(res != -1){
-                r = mid - 1;
-                m = mid;
-                n = res;
-            }        
-            else l = mid + 1;
+        ll n = -1, m = -1, minn = LLONG_MAX;
+        for(int x = 1; x * x <= 4 * k - 1; x+=2){
+            if((4 * k - 1) % (2 * x + 1) != 0) continue;
+            ll y = ((4 * k - 1) / (2 * x + 1) -1) / 2;
+           
+            if(x <= y && abs(x - y) < minn){
+                m = x;
+                n = y;
+                minn = abs(x - y);
+            }
         }
-
         cout<<m<<" "<<n<<el;
     }
     

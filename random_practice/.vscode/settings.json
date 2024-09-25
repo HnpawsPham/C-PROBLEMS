@@ -77,7 +77,8 @@
         "xlocinfo": "cpp",
         "xstring": "cpp",
         "xiosbase": "cpp",
-        "xlocale": "cpp"
+        "xlocale": "cpp",
+        "format": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
