@@ -5,6 +5,10 @@ using ll = long long;
 
 int t;
 
+ll get_res(ll m){
+    return (2 * m - 2 * m * m) / (2 * m + 1) - 1;
+}
+
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
@@ -15,18 +19,14 @@ int main(){
         ll k;
         cin>>k;
 
-        ll n = -1, m = -1, minn = LLONG_MAX;
-        for(int x = 1; x * x <= 4 * k - 1; x+=2){
-            if((4 * k - 1) % (2 * x + 1) != 0) continue;
-            ll y = ((4 * k - 1) / (2 * x + 1) -1) / 2;
-           
-            if(x <= y && abs(x - y) < minn){
+        ll m = -1, minn = LLONG_MAX;
+        for(int x = 1; x * x <= k; x++){
+            if(get_res(x) < minn){
+                minn = get_res(x);
                 m = x;
-                n = y;
-                minn = abs(x - y);
             }
         }
-        cout<<m<<" "<<n<<el;
+        cout<<minn<<" "<<m<<el;
     }
     
     return 0;

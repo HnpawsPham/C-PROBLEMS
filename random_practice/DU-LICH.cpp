@@ -26,9 +26,10 @@ struct Elm{
 
 void print(Elm curr){
     cout<<curr.cost<<el;
-    for(int x : curr.path){
-        cout<<x<<" ";
+    for(int i = 1; i<curr.path.size();i++){  
+        cout<<curr.path[i]<<" ";
     }
+    cout<<curr.path[1]<<el;
     return;
 }
 
@@ -37,10 +38,9 @@ void solve(Elm curr){
 
     while(ok){
         ok = false;
-
         for(int i = 2; i<n;i++){
             for(int j = i + 1; j<=n;j++){
-                vector<int> t = path;
+                vector<int> t = curr.path;
                 reverse(t.begin() + i, t.begin() + j + 1);
 
                 Elm newElm(t);
@@ -56,10 +56,9 @@ void solve(Elm curr){
 }
 
 Elm build(){
-    vector<int> path;
+    vector<int> path(n + 1);
     for(int i = 1; i<=n;i++){
-        path.push_back(i);
-        path.push_back(i);
+        path[i] = i;
     }
     return Elm(path);
 }

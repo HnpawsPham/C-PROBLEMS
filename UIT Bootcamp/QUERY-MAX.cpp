@@ -4,8 +4,8 @@ using ll = long long;
 #define el "\n"
 
 int n, q;
-const int maxn = (ll)1e5 * 4 + 5;
-ll a[maxn];
+const ll maxn = (ll)1e5 + 5;
+ll a[4 * maxn], t[maxn];
 
 void buildSeg(){
     for(int i = n; i < 2 * n; i++)
@@ -44,14 +44,25 @@ ll getSeg(int l, int r){
     return res;
 }
 
-void updateFen(int i){
+void updateFen(int i, ll val){
     while(i <= n){
-        
+        t[i] += val;
+        i += i & (-i);
     }
     return;
 }
 
+ll getFen(int i){
+    ll res = 0;
+    while(i > 0){
+        res += t[i];
+        i -= i & (-i);
+    }
+    return res;
+}
+
 int main(){
+    freopen(".\\txt\\QUERY-MAX.INP", "r", stdin);
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
@@ -64,6 +75,7 @@ int main(){
         if(t == 1){
             int p; ll x;
             cin>>p>>x;
+          
         }
         else{
             int u, v;
