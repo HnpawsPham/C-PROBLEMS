@@ -78,7 +78,8 @@
         "xstring": "cpp",
         "xiosbase": "cpp",
         "xlocale": "cpp",
-        "format": "cpp"
+        "format": "cpp",
+        "ios": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

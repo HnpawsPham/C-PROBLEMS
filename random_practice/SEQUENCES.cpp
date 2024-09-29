@@ -5,6 +5,24 @@ using ll = long long;
 
 int n;
 
+vector<int> get_lis(ll a[], int n){
+    vector<int> dp;
+    vector<int> inc(n, 0);
+    for(int i = 0; i<n;i++){
+        int pos = lower_bound(dp.begin(), dp.end(), a[i]) - dp.begin();
+
+        if(pos == dp.size()){
+            dp.push_back(a[i]);
+            inc[i] = dp.size();
+        }
+        else{
+            inc[i] += inc[pos];
+            dp[pos] = a[i];
+        }
+    }
+    return inc;
+}
+
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
@@ -12,19 +30,19 @@ int main(){
 
     cin>>n;
     ll a[n];
-    vector<int> inc(n, 1), dec(n, 1);
-
     for(int i = 0;i<n;i++) cin>>a[i];
 
-    for(int i = 1; i<n;i++){
-        if(a[i] > a[i - 1]) inc[i] = inc[i - 1] + 1;
+    vector<int> inc = get_lis(a, n);
+
+    for(int i = 0; i<n/2;i++){
+        swap(a[i], a[n - i - 1]);
     }
-    for(int i = n - 2; i >= 0;i--){
-        if(a[i] > a[i + 1]) dec[i] = dec[i + 1] + 1;
-    }
+
+    vector<int> dec = get_lis(a, n);
+
     int maxlen = 0;
     for(int i = 0;i<n;i++){
-        maxlen = max(maxlen, 2 * min(inc[i], dec[i]) - 1);
+        maxlen = max(maxlen, 2 * min(inc[i], dec[n - i - 1]) - 1);
     }
     cout<<maxlen<<el;
 

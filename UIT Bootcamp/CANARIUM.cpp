@@ -5,8 +5,11 @@ using ll = long long;
 
 int t;
 
-ll get_res(ll m){
-    return (2 * m - 2 * m * m) / (2 * m + 1) - 1;
+ll get_res(ll m, ll k){
+    ll t1 = 2 * k - 2 * m * m;
+    ll t2 = 2 * m + 1;
+    if(t1 % t2 == 0) return t1 / t2 -1;
+    else return LLONG_MAX;
 }
 
 int main(){
@@ -19,14 +22,18 @@ int main(){
         ll k;
         cin>>k;
 
-        ll m = -1, minn = LLONG_MAX;
-        for(int x = 1; x * x <= k; x++){
-            if(get_res(x) < minn){
-                minn = get_res(x);
+        ll m = -1, delta = LLONG_MAX;
+        for(ll x = 1; x * x < k; x++){
+            ll res = get_res(x, k);
+            if(res < delta){
+                delta = res;
                 m = x;
             }
         }
-        cout<<minn<<" "<<m<<el;
+        if(delta == LLONG_MAX || m == -1){
+            cout<<"-1 -1"<<el;
+        }
+        else cout<<m<<" "<<m + delta<<el;
     }
     
     return 0;

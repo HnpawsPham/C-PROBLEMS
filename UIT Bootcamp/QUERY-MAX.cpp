@@ -75,7 +75,7 @@ int main(){
         if(t == 1){
             int p; ll x;
             cin>>p>>x;
-          
+            
         }
         else{
             int u, v;
