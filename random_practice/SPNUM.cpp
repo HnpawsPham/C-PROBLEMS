@@ -5,7 +5,7 @@ using ll = long long;
 
 ll n;
 
-void sumCh(ll x){
+ll sumCh(ll x){
     int sum = 0;
     string str = to_string(x);
     int m = str.length();
@@ -15,7 +15,7 @@ void sumCh(ll x){
     return sum;
 }
 
-void sumPt(ll x){
+ll sumPt(ll x){
     ll sum = 0;
 
     if(x % 2 == 0){
@@ -25,19 +25,13 @@ void sumPt(ll x){
         }
     }
 
-    for(int i = 3; i<=x; i+=2){
+    for(ll i = 3; i<=x; i+=2){
         if(x % i == 0){
-            string str = to_string(i);
-            int m = str.length();
-            int sum2 = 0;
-
-            for(int j = 0; j<m;j++){
-                sum2 += int(str[j] -'0');
-            }
+            ll sum2 = sumCh(i);
             x/=i;
 
             while(x % i == 0){
-                sum2 *=2;
+                sum2 += sum2;
                 x/=i;
             }
             sum += sum2;
@@ -47,11 +41,19 @@ void sumPt(ll x){
 }
 
 int main(){
+    freopen(".\\txt\\SPNUM.INP", "r", stdin);
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
 
     cin>>n;
+    while(true){
+        n++;
+        ll sum1 = sumCh(n);
+        ll sum2 = sumPt(n);
+        if(sum1 == sum2) break;
+    }
+    cout<<n<<el;
 
     return 0;
 }
