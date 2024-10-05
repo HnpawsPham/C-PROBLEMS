@@ -36,6 +36,7 @@ int main(){
     int m = res.size();
     ll cnt = (m > 0);
 
+    // idea: dem so luong ptu tu res[i] den (n - res[i]) / (d + 1)
     for(int i = 1; i < m - 1;i++){
         int t = 1;
         while(res[i + 1] - (res[i] + t) > d){
