@@ -5,6 +5,27 @@ using ll = long long;
 #define MOD 1000000007
 
 ll n, k, d;
+const int maxn = (ll) 1e7 + 5;
+int fw[maxn] = {0};
+
+void update(int i){
+    while(i > 0){
+        i -= (i & -i);
+        fw[i]++;
+    }
+    return;
+}
+
+ll sum(int i){
+    ll res = 0;
+
+    while(i <= n){
+        res += fw[i];
+        i += (i & -i);
+    }
+
+    return res;
+}
 
 int main(){
     freopen(".\\txt\\OPSET.INP", "r", stdin);
@@ -18,6 +39,7 @@ int main(){
         ll x;
         cin>>x;
         a[x] = 1;
+        update(x);
     }
 
     int i = 1, len = 0, t = 0;
@@ -36,13 +58,12 @@ int main(){
     int m = res.size();
     ll cnt = (m > 0);
 
-    // idea: dem so luong ptu tu res[i] den (n - res[i]) / (d + 1)
+    for(int i = 0; i<=n;i++){
+        cout<<fw[i]<<" ";
+    }
+    cout<<el;
     for(int i = 1; i < m - 1;i++){
-        int t = 1;
-        while(res[i + 1] - (res[i] + t) > d){
-            t++;
-            cnt++;
-        }
+        cnt += ((n - res[i]) / (d + 1) - (abs(sum(res[i]) - sum(res[i + 1]))));
     }
     cout<<len<<el;
     cout<<cnt<<el;
