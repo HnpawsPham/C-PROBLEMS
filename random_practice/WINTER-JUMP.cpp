@@ -27,8 +27,7 @@ int main(){
         }
 
         for(int x = n; x >=0;x--){
-            if(x == n) dp[i][x] = dp[i][x];
-            else dp[i][x] = min(dp[i][x + 1], dp[i][x]);
+            if(x > n) dp[i][x] = min(dp[i][x + 1], dp[i][x]);
         }
     }
 
