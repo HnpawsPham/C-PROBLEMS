@@ -4,7 +4,10 @@ using namespace std;
 
 string str;
 
-void solve(int i, int sum, int num){
+void solve(int i, string num, int sum){
+    if(sum != stoi(num)){
+        
+    }
     return;
 }
 
@@ -15,6 +18,13 @@ int main(){
     cout.tie(0);
 
     cin>>str;
+    
+    if(str.length() < 3){
+        cout<<"false"<<el;
+        return 0;
+    }
+
+    solve(2, "" + str[2], 0);
 
 
     return 0;
