@@ -4,11 +4,17 @@ using namespace std;
 
 string str;
 
-void solve(int i, string num, int sum){
-    if(sum != stoi(num)){
-        
+int solve(int l, int prev, int i, int num){
+    int x = stoi(str.substr(l, prev - l + 1));
+    int y = stoi(str.substr(prev + 1, i - prev));
+    
+    if(x + y == str[num]){
+        solve(i, i + 1, i + 2, i + 3);
     }
-    return;
+    else{
+
+    }
+    return 0;
 }
 
 int main(){
@@ -24,7 +30,7 @@ int main(){
         return 0;
     }
 
-    solve(2, "" + str[2], 0);
+    solve(0, 0, 1, 2);
 
 
     return 0;
